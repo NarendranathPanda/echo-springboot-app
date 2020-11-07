@@ -1,4 +1,4 @@
-Regular way
+# Regular way
 ####################
 build: 
   mvn clean install 
@@ -6,7 +6,7 @@ build:
 run: 
   java -jar target/echo.jar
 
-Container way 
+# Container way 
 ##################
   
 build : 
