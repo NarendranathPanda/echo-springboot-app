@@ -1,5 +1,5 @@
 # Regular way
-####################
+
 build: 
   mvn clean install 
 
@@ -7,7 +7,7 @@ run:
   java -jar target/echo.jar
 
 # Container way 
-##################
+
   
 build : 
   docker build -t narenp/echo-springboot-app .
