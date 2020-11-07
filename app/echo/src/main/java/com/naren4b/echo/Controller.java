@@ -1,9 +1,11 @@
 package com.naren4b.echo;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +17,6 @@ import com.naren4b.echo.service.MetricService;
 @RestController
 public class Controller {
 
-	private static final String HELLO = "Hello! Try echo at  <a href=\"/echo\">echo</a>";
 
 	@Autowired
 	MetricService metricSvc;
@@ -24,9 +25,14 @@ public class Controller {
 	EchoService echoSvc;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE, path = "")
-	public String index() {
+	public String index(@RequestHeader Map<String, String> headers) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table border=0>");
+		headers.forEach((key, value) -> {
+			sb.append("<tr><td>" + key + "</td><td>" + value + "</td></tr>");
+		});
 		MetricService.SITE_VISIT_COUNTER++;
-		return HELLO;
+		return sb.toString()+ "</table>";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, path = "echo")
